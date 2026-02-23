@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Happy Birthday Sanawia 💖</title>
+  <meta name="description" content="A romantic birthday wish for Sanawia." />
+  <style>
+    :root{
+      --bg1:#0b0f1a;
+      --bg2:#1a1030;
+      --card:#ffffff10;
+      --text:#f7f7fb;
+      --muted:#c8c8d6;
+      --accent:#ff77c8;
+      --accent2:#8f7bff;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius: 22px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      overflow-x:hidden;
+      background:
+        radial-gradient(1200px 800px at 20% 10%, rgba(255,119,200,.22), transparent 55%),
+        radial-gradient(900px 700px at 80% 15%, rgba(143,123,255,.22), transparent 55%),
+        radial-gradient(1000px 900px at 50% 90%, rgba(255,255,255,.08), transparent 60%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+    }
+
+    /* Confetti canvas sits behind UI but above background */
+    #confetti{
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .wrap{
+      position: relative;
+      z-index: 1;
+      min-height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 24px 16px calc(24px + env(safe-area-inset-bottom));
+    }
+
+    .card{
+      width:min(720px, 100%);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero{
+      padding: 26px 22px 14px;
+      display:flex;
+      gap: 16px;
+      align-items:center;
+    }
+
+    .badge{
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,119,200,.95), rgba(143,123,255,.85));
+      box-shadow: 0 12px 26px rgba(255,119,200,.20);
+      display:grid;
+      place-items:center;
+      flex: 0 0 auto;
+      transform: rotate(-6deg);
+    }
+    .badge span{
+      font-size: 26px;
+      line-height: 1;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,.25));
+    }
+
+    h1{
+      margin:0;
+      font-size: clamp(22px, 4.7vw, 34px);
+      letter-spacing: .2px;
+    }
+    .sub{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: clamp(13px, 3.4vw, 15px);
+      line-height: 1.4;
+    }
+
+    .content{
+      padding: 0 22px 22px;
+      display:grid;
+      gap: 14px;
+    }
+
+    .quote{
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      padding: 16px 14px;
+      line-height: 1.6;
+      font-size: clamp(14px, 3.6vw, 16px);
+    }
+
+    .name{
+      color: #fff;
+      font-weight: 750;
+      text-shadow: 0 10px 24px rgba(255,119,200,.18);
+      background: linear-gradient(90deg, #ffd1eb, #d6d1ff);
+      -webkit-background-clip: text;
+      background-clip:text;
+      color: transparent;
+    }
+
+    .row{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--muted);
+      font-size: 13px;
+      user-select:none;
+    }
+    .chip b{ color:#fff; }
+
+    .btns{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:flex-end;
+    }
+    button{
+      appearance:none;
+      border: 0;
+      cursor:pointer;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-weight: 700;
+      color: #101122;
+      background: linear-gradient(90deg, rgba(255,119,200,.95), rgba(143,123,255,.95));
+      box-shadow: 0 16px 40px rgba(143,123,255,.18);
+      transition: transform .08s ease, filter .15s ease;
+      width: auto;
+      min-width: 150px;
+    }
+    button.secondary{
+      color: var(--text);
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: none;
+      min-width: 160px;
+    }
+    button:active{ transform: translateY(1px) scale(.99); }
+    button:hover{ filter: brightness(1.02); }
+
+    footer{
+      padding: 14px 22px 20px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.65);
+      font-size: 12.5px;
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 420px){
+      .hero{ padding: 22px 16px 10px; }
+      .content{ padding: 0 16px 18px; }
+      footer{ padding: 12px 16px 16px; }
+      .btns{ width:100%; justify-content:stretch; }
+      button{ width:100%; min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+
+  <main class="wrap">
+    <section class="card" role="region" aria-label="Birthday wish card">
+      <div class="hero">
+        <div class="badge" aria-hidden="true"><span>🎂</span></div>
+        <div>
+          <h1>Happy Birthday, <span class="name">Sanawia</span> 💖</h1>
+          <p class="sub">A little romantic surprise—made with love & a sprinkle of magic ✨</p>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="quote" id="message">
+          Hey Sanawia…<br><br>
+          Aaj ka din sirf ek birthday nahi hai… yeh us din ka celebration hai jab duniya thodi si aur khoobsurat ho gayi thi.<br><br>
+          Sach kahun… kuch log special hote hain, aur kuch log special feel karwate hain—tum dono ho.<br><br>
+          <b>Happy Birthday!</b> Hamesha muskuraati raho… kyunki tumhari smile sach me farq dalti hai.<br><br>
+          <i>Stay the way you are… you’re more precious than you realize.</i>
+        </div>
+
+        <div class="row">
+          <div class="chip">🎉 Tap the button for <b>extra confetti</b></div>
+          <div class="btns">
+            <button class="secondary" id="copyBtn">Copy Message</button>
+            <button id="confettiBtn">Celebrate ✨</button>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <span>Made for <b>Sanawia</b> • Best viewed on mobile</span>
+        <span id="status" aria-live="polite"></span>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    // Simple confetti (no libraries) — mobile friendly & lightweight.
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+
+    let W = 0, H = 0, dpr = 1;
+    function resize(){
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = canvas.width  = Math.floor(window.innerWidth * dpr);
+      H = canvas.height = Math.floor(window.innerHeight * dpr);
+      canvas.style.width = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
+      ctx.setTransform(1,0,0,1,0,0);
+    }
+    window.addEventListener('resize', resize, {passive:true});
+    resize();
+
+    const colors = ['#ff77c8','#8f7bff','#ffd1eb','#d6d1ff','#ffffff','#ffe08a','#8affc1'];
+    const rand = (a,b)=>Math.random()*(b-a)+a;
+
+    class Piece{
+      constructor(){
+        this.reset(true);
+      }
+      reset(fromTop){
+        this.x = rand(0, W);
+        this.y = fromTop ? rand(-H*0.2, 0) : rand(-H, 0);
+        this.w = rand(8, 14) * dpr;
+        this.h = rand(10, 18) * dpr;
+        this.vx = rand(-0.7, 0.7) * dpr;
+        this.vy = rand(2.2, 4.6) * dpr;
+        this.rot = rand(0, Math.PI*2);
+        this.vr  = rand(-0.12, 0.12);
+        this.color = colors[(Math.random()*colors.length)|0];
+        this.alpha = rand(0.75, 1);
+        this.shape = Math.random() < 0.25 ? 'circle' : 'rect';
+      }
+      step(){
+        this.x += this.vx;
+        this.y += this.vy;
+        this.rot += this.vr;
+        // gentle drift
+        this.vx += rand(-0.03, 0.03) * dpr;
+        this.vx = Math.max(-1.2*dpr, Math.min(1.2*dpr, this.vx));
+
+        if(this.y > H + 40*dpr) this.reset(false);
+        if(this.x < -40*dpr) this.x = W + 40*dpr;
+        if(this.x > W + 40*dpr) this.x = -40*dpr;
+      }
+      draw(){
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rot);
+        if(this.shape === 'circle'){
+          ctx.beginPath();
+          ctx.arc(0, 0, Math.min(this.w,this.h)/2, 0, Math.PI*2);
+          ctx.fill();
+        }else{
+          ctx.fillRect(-this.w/2, -this.h/2, this.w, this.h);
+        }
+        ctx.restore();
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    let pieces = [];
+    let running = true;
+    let burstTimer = 0;
+
+    function spawn(n){
+      for(let i=0;i<n;i++) pieces.push(new Piece());
+    }
+
+    function clear(){
+      ctx.clearRect(0,0,W,H);
+    }
+
+    function loop(){
+      if(!running) return;
+      clear();
+
+      // If burstTimer active, accelerate confetti for a short burst
+      const burst = burstTimer > 0;
+      if(burst) burstTimer--;
+
+      for(const p of pieces){
+        if(burst) { p.vy = Math.min(p.vy + 0.12*dpr, 6.5*dpr); }
+        p.step();
+        p.draw();
+      }
+
+      requestAnimationFrame(loop);
+    }
+
+    // Initial confetti
+    spawn(120);
+    loop();
+
+    // UI actions
+    const statusEl = document.getElementById('status');
+    const confettiBtn = document.getElementById('confettiBtn');
+    const copyBtn = document.getElementById('copyBtn');
+
+    confettiBtn.addEventListener('click', ()=>{
+      burstTimer = 140;          // ~2.3s burst
+      spawn(40);                 // add more pieces
+      statusEl.textContent = "✨ Yay! Celebrating!";
+      setTimeout(()=> statusEl.textContent = "", 1800);
+    });
+
+    copyBtn.addEventListener('click', async ()=>{
+      const html = document.getElementById('message').innerText;
+      try{
+        await navigator.clipboard.writeText(html.trim());
+        statusEl.textContent = "✅ Message copied!";
+      }catch(e){
+        // Fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.value = html.trim();
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+        statusEl.textContent = "✅ Message copied!";
+      }
+      setTimeout(()=> statusEl.textContent = "", 1800);
+    });
+
+    // Optional: pause confetti if user switches tabs to save battery
+    document.addEventListener('visibilitychange', ()=>{
+      running = !document.hidden;
+      if(running) loop();
+    });
+  </script>
+</body>
+</html>
